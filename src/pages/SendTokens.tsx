@@ -6,6 +6,8 @@ import {
   Transaction,
 } from "@solana/web3.js";
 import { useState } from "react";
+import InputBox from "../components/InputBox";
+import Button from "../components/Button";
 
 const SendTokens = () => {
   const [walletAddress, setWalletAddress] = useState("");
@@ -48,23 +50,21 @@ const SendTokens = () => {
   };
 
   return (
-    <div>
-      <input
-        type='text'
-        placeholder='Enter the wallet address'
-        value={walletAddress}
-        onChange={(e) => setWalletAddress(e.target.value)}
-      />
-      <input
-        type='number'
-        placeholder='Enter the amount'
-        value={amount}
-        onChange={(e) =>
-          setAmount(parseFloat(e.target.value))
-        }
-      />
-      <button onClick={sendToken}>Send Token</button>
-    </div>
+    <section id='sendtokens' className='flex justify-center py-8'>
+      <div className='flex flex-col p-6 w-full max-w-md gap-6 bg-white  border border-gray-300 shadow-lg rounded-xl'>
+        <InputBox
+          placeholder='Enter the wallet address'
+          value={walletAddress}
+          onChange={(e) => setWalletAddress(e.target.value)}
+        />
+        <InputBox
+          placeholder='Enter the amount'
+          value={amount}
+          onChange={(e) => setAmount(parseFloat(e.target.value))}
+        />
+        <Button onClick={sendToken} title='Send Token' />
+      </div>
+    </section>
   );
 };
 

@@ -12,23 +12,29 @@ import ShowSolBalance from "./pages/ShowSolBalance";
 import SendTokens from "./pages/SendTokens";
 import Navbar from "./components/Navbar";
 import SignMessage from "./pages/SignMessage";
+import Footer from "./components/Footer";
 
 
 const App = () => {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   return (
-      <ConnectionProvider endpoint={endpoint}>
-        <WalletProvider wallets={[]} autoConnect>
-          <WalletModalProvider>
-            <Navbar />
+    <ConnectionProvider
+      endpoint={endpoint}
+    >
+      <WalletProvider wallets={[]} autoConnect>
+        <WalletModalProvider>
+          <Navbar />
+          <div className='justify-center items-center py-8'>
             <Airdrop />
             <ShowSolBalance />
             <SendTokens />
-            <SignMessage/>
-          </WalletModalProvider>
-        </WalletProvider>
-      </ConnectionProvider>
+            <SignMessage />
+          </div>
+          <Footer />
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
   );
 };
 

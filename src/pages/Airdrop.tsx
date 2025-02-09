@@ -2,6 +2,8 @@ import { useState } from 'react'
 import {useWallet} from '@solana/wallet-adapter-react';
 import { useConnection } from '@solana/wallet-adapter-react';
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+import InputBox from '../components/InputBox';
+import Button from '../components/Button';
 const Airdrop = () => {
     const[amount, setAmount] = useState("");
     const {publicKey, connected} = useWallet();
@@ -22,7 +24,7 @@ const Airdrop = () => {
         try{
 
             const txSignature = await connection.requestAirdrop(publicKey, solAmount * LAMPORTS_PER_SOL);
-            alert(`Airdrop successful ${solAmount} SQL sent to ${publicKey.toBase58()}\n Transaction Signature: ${txSignature}`);
+            alert(`Airdrop successful ${solAmount} SOL sent to ${publicKey.toBase58()}\n Transaction Signature: ${txSignature}`);
             setAmount("")
         } catch(err)
         {
@@ -31,11 +33,22 @@ const Airdrop = () => {
         }
     }
   return (
-    <div>
-        <input type="number" placeholder='Ente the amount of SOL' min='0.01' value={amount}  onChange={(e) => setAmount(e.target.value)}/>
-        <button onClick={requestAirdrop}> Request Airdrop</button>
-    </div>
-  )
+    <section id='airdrop' className='flex justify-center py-8'>
+      <div className='flex flex-col p-6 w-full max-w-md gap-6 bg-white  border border-gray-300 shadow-lg rounded-xl'>
+            <h2 className='font-semibold text-xl text-center text-gray-800'>
+                SOL Airdrop
+            </h2>
+        <div className=' flex flex-col gap-4 '>
+          <InputBox
+            value={amount}
+            onChange={(e: any) => setAmount(e.target.value)}
+            placeholder={"Enter the amount of SOL"}
+          />
+        </div>
+          <Button title={"Request Airdrop"} onClick={requestAirdrop}/>
+      </div>
+    </section>
+  );
 }
 
 export default Airdrop

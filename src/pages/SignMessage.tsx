@@ -2,6 +2,8 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useState } from "react";
 import { ed25519 } from "@noble/curves/ed25519";
 import bs58 from "bs58";
+import InputBox from "../components/InputBox";
+import Button from "../components/Button";
 
 const SignMessage = () => {
   const { publicKey, signMessage } = useWallet();
@@ -45,15 +47,16 @@ const SignMessage = () => {
   };
 
   return (
-    <div>
-      <input
-        type='text'
-        placeholder='Enter the Message'
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={messageSign}>Sign Message</button>
-    </div>
+    <section id='signmessage' className="flex justify-center py-6">
+      <div className='flex flex-col p-6 w-full max-w-md gap-6 bg-white  border border-gray-300 shadow-lg rounded-xl'>
+        <InputBox
+          placeholder='Enter the Message'
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <Button onClick={messageSign} title='Sign Message' />
+      </div>
+    </section>
   );
 };
 
